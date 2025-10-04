@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Cheat Sheet</title>
+  <!-- Prism.js CSS for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f8fafc;
+    }
+
+    .container {
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 12px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .card h2 {
+      color: #2d3748;
+      margin-bottom: 16px;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 8px;
+    }
+
+    .card h3 {
+      color: #4a5568;
+      margin: 16px 0 8px 0;
+      font-size: 1.1rem;
+    }
+
+    .code {
+      background: #2d3748 !important;
+      border: 1px solid #4a5568;
+      border-radius: 6px;
+      padding: 12px;
+      font-family: 'Monaco', 'Menlo', 'Fira Code', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 8px 0;
+      color: #e2e8f0;
+    }
+
+    /* Override Prism.js styles for dark theme */
+    pre[class*="language-"] {
+      background: #2d3748 !important;
+      border: 1px solid #4a5568;
+      border-radius: 6px;
+      margin: 8px 0;
+      padding: 16px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      line-height: 1.5;
+    }
+
+    code[class*="language-"] {
+      background: transparent !important;
+      color: #e2e8f0 !important;
+      font-family: 'Monaco', 'Menlo', 'Fira Code', monospace;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    /* Custom syntax highlighting colors */
+    .token.comment {
+      color: #718096;
+    }
+
+    .token.keyword {
+      color: #63b3ed;
+    }
+
+    .token.string {
+      color: #68d391;
+    }
+
+    .token.number {
+      color: #f6ad55;
+    }
+
+    .token.function {
+      color: #fbb6ce;
+    }
+
+    .token.operator {
+      color: #e2e8f0;
+    }
+
+    .token.punctuation {
+      color: #cbd5e0;
+    }
+
+    .token.tag {
+      color: #63b3ed;
+    }
+
+    .token.attr-name {
+      color: #fbb6ce;
+    }
+
+    .token.attr-value {
+      color: #68d391;
+    }
+
+    .inline-code {
+      background: #2d3748;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Menlo', 'Fira Code', monospace;
+      font-size: 0.9rem;
+      color: #63b3ed;
+      border: 1px solid #4a5568;
+    }
+
+    .description {
+      color: #718096;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+    .list {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+
+    .list li {
+      margin-bottom: 4px;
+    }
+
+    .highlight {
+      background: #fef5e7;
+      border-left: 4px solid #f6ad55;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .tip {
+      background: #f0fff4;
+      border-left: 4px solid #48bb78;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .warning {
+      background: #fed7d7;
+      border-left: 4px solid #f56565;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .nav {
+      position: sticky;
+      top: 20px;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+    }
+
+    .nav h3 {
+      margin-bottom: 12px;
+      color: #2d3748;
+    }
+
+    .nav ul {
+      list-style: none;
+    }
+
+    .nav a {
+      color: #4299e1;
+      text-decoration: none;
+      display: block;
+      padding: 4px 0;
+      font-size: 0.9rem;
+    }
+
+    .nav a:hover {
+      color: #2b6cb0;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 30px;
+    }
+
+    @media (max-width: 1200px) {
+      .container {
+        max-width: 100%;
+        padding: 15px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        position: static;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      pre[class*="language-"] {
+        font-size: 0.8rem;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>React Cheat Sheet</h1>
+
+    </div>
+
+    <div class="two-column">
+      <nav class="nav">
+        <h3>Quick Navigation</h3>
+        <ul>
+          <li><a href="#fundamentals">React Fundamentals</a></li>
+          <li><a href="#hooks">Hooks & State</a></li>
+          <li><a href="#events">Event Handling</a></li>
+          <li><a href="#api">API Integration</a></li>
+          <li><a href="#routing">Routing</a></li>
+          <li><a href="#deployment">Deployment</a></li>
+          <li><a href="#real-world-patterns">Real-World Patterns</a></li>
+          <li><a href="#advanced">Advanced Patterns</a></li>
+          <li><a href="#best-practices">Best Practices</a></li>
+        </ul>
+      </nav>
+
+      <div class="content">
+        <div class="grid">
+          <div class="card" id="fundamentals">
+            <h2>React Fundamentals</h2>
+
+            <h3>JSX Basics</h3>
+            <div class="description">Create elements with JavaScript expressions and map arrays to lists</div>
+            <pre><code class="language-jsx">const element = &lt;h1&gt;Hello, {name}!&lt;/h1&gt;;
+const list = items.map(item =&gt; 
+  &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+);</code></pre>
+
+            <h3>Functional Components</h3>
+            <div class="description">Define components as arrow functions or function declarations with props
+              destructuring</div>
+            <pre><code class="language-jsx">// Arrow function (preferred for simple components)
+const Welcome = ({ name, age = 18 }) =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Hello, {name}!&lt;/h1&gt;
+      &lt;p&gt;Age: {age}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Function declaration (hoisted, good for complex components)
+function Welcome({ name, age = 18 }) {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Hello, {name}!&lt;/h1&gt;
+      &lt;p&gt;Age: {age}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Implicit return (for simple JSX)
+const SimpleCard = ({ title }) =&gt; (
+  &lt;div className="card"&gt;{title}&lt;/div&gt;
+);</code></pre>
+
+            <h3>Props & Children</h3>
+            <div class="description">Pass data to components via props and render nested content with children</div>
+            <pre><code class="language-jsx">const Card = ({ title, children }) =&gt; (
+  &lt;div className="card"&gt;
+    &lt;h2&gt;{title}&lt;/h2&gt;
+    {children}
+  &lt;/div&gt;
+);
+
+// Usage
+&lt;Card title="My Card"&gt;
+  &lt;p&gt;Card content here&lt;/p&gt;
+&lt;/Card&gt;</code></pre>
+
+            <h3>Conditional Rendering</h3>
+            <div class="description">Show/hide components based on conditions using ternary, logical AND, or early
+              returns</div>
+            <pre><code class="language-jsx">// Ternary operator
+{user ? &lt;Dashboard /&gt; : &lt;Login /&gt;}
+
+// Logical AND
+{isLoggedIn && &lt;WelcomeMessage /&gt;}
+
+// Early return
+if (loading) return &lt;Spinner /&gt;;
+if (error) return &lt;ErrorMessage /&gt;;</code></pre>
+          </div>
+
+          <div class="card" id="hooks">
+            <h2>Hooks & State Management</h2>
+
+            <h3>useState</h3>
+            <div class="description">Manage component state with immutable updates for objects and arrays</div>
+            <pre><code class="language-jsx">// Basic state
+const [count, setCount] = useState(0);
+const [user, setUser] = useState(null);
+const [items, setItems] = useState([]);
+
+// Functional updates
+setCount(prev =&gt; prev + 1);
+setItems(prev =&gt; [...prev, newItem]);
+
+// Update object property (shallow)
+const [user, setUser] = useState({ name: '', email: '' });
+setUser(prev =&gt; ({ ...prev, name: 'John' }));
+
+// Update nested object (deep copy)
+const [profile, setProfile] = useState({
+  user: { name: 'John', settings: { theme: 'dark' } }
+});
+setProfile(prev =&gt; ({
+  ...prev,
+  user: {
+    ...prev.user,
+    settings: { ...prev.user.settings, theme: 'light' }
+  }
+}));
+
+// Update item in array by ID
+const [users, setUsers] = useState([
+  { id: 1, name: 'John' }, { id: 2, name: 'Jane' }
+]);
+setUsers(prev =&gt; prev.map(user =&gt; 
+  user.id === 1 ? { ...user, name: 'Johnny' } : user
+));
+
+// Add/remove items from array
+setUsers(prev =&gt; [...prev, newUser]); // Add
+setUsers(prev =&gt; prev.filter(user =&gt; user.id !== 1)); // Remove</code></pre>
+
+            <h3>useEffect</h3>
+            <div class="description">Handle side effects like API calls, subscriptions, and cleanup</div>
+            <pre><code class="language-jsx">// Component mount
+useEffect(() =&gt; {
+  fetchData();
+}, []); // Empty dependency array
+
+// Dependency changes
+useEffect(() =&gt; {
+  fetchUser(userId);
+}, [userId]);
+
+// Cleanup
+useEffect(() =&gt; {
+  const timer = setInterval(() =&gt; {}, 1000);
+  return () =&gt; clearInterval(timer);
+}, []);</code></pre>
+
+            <h3>useCallback & useMemo</h3>
+            <div class="description">Optimize performance by memoizing functions and expensive calculations</div>
+            <pre><code class="language-jsx">// Memoize functions
+const handleClick = useCallback((id) =&gt; {
+  onItemClick(id);
+}, [onItemClick]);
+
+// Memoize expensive calculations
+const expensiveValue = useMemo(() =&gt; {
+  return items.filter(item =&gt; 
+    item.name.includes(searchTerm)
+  );
+}, [items, searchTerm]);</code></pre>
+
+            <h3>useReducer</h3>
+            <div class="description">Manage complex state logic with actions and reducers for predictable updates</div>
+            <pre><code class="language-jsx">// Reducer function
+const counterReducer = (state, action) =&gt; {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    case 'reset':
+      return { count: 0 };
+    default:
+      return state;
+  }
+};
+
+// Component usage
+const Counter = () =&gt; {
+  const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+  
+  return (
+    &lt;div&gt;
+      Count: {state.count}
+      &lt;button onClick={() =&gt; dispatch({ type: 'increment' })}&gt;+&lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: 'decrement' })}&gt;-&lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: 'reset' })}&gt;Reset&lt;/button&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+
+            <div class="tip">
+              <strong>Tip:</strong> Use <span class="inline-code">useCallback</span> for functions, <span
+                class="inline-code">useMemo</span> for values. Only use when you have performance issues. Use <span
+                class="inline-code">useReducer</span> for complex state logic with multiple related values.
+            </div>
+          </div>
+
+          <div class="card" id="events">
+            <h2>Event Handling</h2>
+
+            <h3>Basic Events</h3>
+            <div class="description">Handle user interactions like clicks with event handlers</div>
+            <pre><code class="language-jsx">const Button = () =&gt; {
+  const handleClick = (e) =&gt; {
+    e.preventDefault();
+    console.log('Clicked!');
+  };
+
+  return &lt;button onClick={handleClick}&gt;Click&lt;/button&gt;;
+};</code></pre>
+
+            <h3>Form Handling</h3>
+            <div class="description">Manage form state and handle input changes with controlled components</div>
+            <pre><code class="language-jsx">const Form = () =&gt; {
+  const [formData, setFormData] = useState({
+    name: '', email: ''
+  });
+
+  const handleChange = (e) =&gt; {
+    const { name, value } = e.target;
+    setFormData(prev =&gt; ({
+      ...prev, [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) =&gt; {
+    e.preventDefault();
+    console.log(formData);
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input name="name" value={formData.name} onChange={handleChange} /&gt;
+      &lt;input name="email" value={formData.email} onChange={handleChange} /&gt;
+      &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  );
+};</code></pre>
+
+            <h3>Form Validation</h3>
+            <div class="description">Custom hook for form validation with real-time error feedback</div>
+            <pre><code class="language-jsx">const useFormValidation = (initialState, validate) =&gt; {
+  const [values, setValues] = useState(initialState);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+
+  const handleChange = (e) =&gt; {
+    const { name, value } = e.target;
+    setValues(prev =&gt; ({ ...prev, [name]: value }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev =&gt; ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const handleBlur = (e) =&gt; {
+    const { name } = e.target;
+    setTouched(prev =&gt; ({ ...prev, [name]: true }));
+    
+    const fieldErrors = validate(values);
+    if (fieldErrors[name]) {
+      setErrors(prev =&gt; ({ ...prev, [name]: fieldErrors[name] }));
+    }
+  };
+
+  const handleSubmit = (callback) =&gt; (e) =&gt; {
+    e.preventDefault();
+    const validationErrors = validate(values);
+    setErrors(validationErrors);
+    setTouched(Object.keys(values).reduce((acc, key) =&gt; {
+      acc[key] = true;
+      return acc;
+    }, {}));
+    
+    if (Object.keys(validationErrors).length === 0) {
+      callback(values);
+    }
+  };
+
+  return { values, errors, touched, handleChange, handleBlur, handleSubmit };
+};
+
+// Usage
+const ContactForm = () =&gt; {
+  const validate = (values) =&gt; {
+    const errors = {};
+    if (!values.name) errors.name = 'Name is required';
+    if (!values.email) errors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(values.email)) {
+      errors.email = 'Email is invalid';
+    }
+    return errors;
+  };
+
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = 
+    useFormValidation({ name: '', email: '' }, validate);
+
+  return (
+    &lt;form onSubmit={handleSubmit((data) =&gt; console.log(data))}&gt;
+      &lt;input
+        name="name"
+        value={values.name}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        placeholder="Name"
+      /&gt;
+      {touched.name && errors.name && &lt;span className="error"&gt;{errors.name}&lt;/span&gt;}
+      
+      &lt;input
+        name="email"
+        value={values.email}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        placeholder="Email"
+      /&gt;
+      {touched.email && errors.email && &lt;span className="error"&gt;{errors.email}&lt;/span&gt;}
+      
+      &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  );
+};</code></pre>
+
+
+          </div>
+
+          <div class="card" id="api">
+            <h2>API Integration</h2>
+
+            <h3>Basic Fetch</h3>
+            <div class="description">Fetch data from APIs with loading states and error handling</div>
+            <pre><code class="language-jsx">const [data, setData] = useState(null);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+
+useEffect(() =&gt; {
+  const fetchData = async () =&gt; {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/data');
+      if (!response.ok) throw new Error('Failed');
+      const result = await response.json();
+      setData(result);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchData();
+}, []);</code></pre>
+
+            <h3>POST Request</h3>
+            <div class="description">Send data to server with proper headers and error handling</div>
+            <pre><code class="language-jsx">const createUser = async (userData) =&gt; {
+  const response = await fetch('/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData)
+  });
+  
+  if (!response.ok) {
+    throw new Error('Failed to create user');
+  }
+  
+  return response.json();
+};</code></pre>
+
+            <h3>Custom API Hook</h3>
+            <div class="description">Reusable hook for API calls with built-in state management and refetch capability
+            </div>
+            <pre><code class="language-jsx">const useApi = (url) =&gt; {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const refetch = useCallback(async () =&gt; {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const result = await response.json();
+      setData(result);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [url]);
+
+  useEffect(() =&gt; { refetch(); }, [refetch]);
+  
+  return { data, loading, error, refetch };
+};
+
+// Usage
+const UserList = () =&gt; {
+  const { data: users, loading, error, refetch } = useApi('/api/users');
+
+  if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+  if (error) return (
+    &lt;div&gt;
+      Error: {error}
+      &lt;button onClick={refetch}&gt;Retry&lt;/button&gt;
+    &lt;/div&gt;
+  );
+
+  return (
+    &lt;ul&gt;
+      {users?.map(user =&gt; &lt;li key={user.id}&gt;{user.name}&lt;/li&gt;)}
+    &lt;/ul&gt;
+  );
+};</code></pre>
+
+            <h3>API with Retry Logic</h3>
+            <div class="description">Advanced API hook with exponential backoff retry mechanism</div>
+            <pre><code class="language-jsx">const useApiWithRetry = (url, maxRetries = 3) =&gt; {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
+
+  const fetchWithRetry = useCallback(async (attempt = 0) =&gt; {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      
+      const result = await response.json();
+      setData(result);
+      setRetryCount(0);
+    } catch (err) {
+      if (attempt &lt; maxRetries) {
+        const delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s...
+        setTimeout(() =&gt; {
+          setRetryCount(attempt + 1);
+          fetchWithRetry(attempt + 1);
+        }, delay);
+      } else {
+        setError(err.message);
+        setLoading(false);
+      }
+    }
+  }, [url, maxRetries]);
+
+  useEffect(() =&gt; { fetchWithRetry(); }, [fetchWithRetry]);
+
+  const retry = () =&gt; {
+    setRetryCount(0);
+    fetchWithRetry();
+  };
+
+  return { data, loading, error, retryCount, retry };
+};</code></pre>
+          </div>
+
+          <div class="card" id="routing">
+            <h2>React Router</h2>
+
+            <h3>Basic Setup</h3>
+            <div class="description">Configure client-side routing with route definitions and dynamic parameters</div>
+            <pre><code class="language-jsx">import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+const App = () =&gt; (
+  &lt;BrowserRouter&gt;
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+      &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+      &lt;Route path="/users/:id" element={&lt;User /&gt;} /&gt;
+      &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+    &lt;/Routes&gt;
+  &lt;/BrowserRouter&gt;
+);</code></pre>
+
+            <h3>Navigation</h3>
+            <div class="description">Navigate between pages with Link components and programmatic navigation</div>
+            <pre><code class="language-jsx">import { Link, NavLink, useNavigate } from 'react-router-dom';
+
+// Links
+&lt;Link to="/about"&gt;About&lt;/Link&gt;
+&lt;NavLink to="/home" className={({isActive}) =&gt; 
+  isActive ? 'active' : ''
+}&gt;Home&lt;/NavLink&gt;
+
+// Programmatic navigation
+const navigate = useNavigate();
+navigate('/dashboard');
+navigate(-1); // Go back</code></pre>
+
+            <h3>URL Parameters</h3>
+            <div class="description">Access route parameters and query strings from the URL</div>
+            <pre><code class="language-jsx">import { useParams, useSearchParams } from 'react-router-dom';
+
+const User = () =&gt; {
+  const { id } = useParams(); // /users/:id
+  const [searchParams] = useSearchParams(); // ?tab=profile
+  const tab = searchParams.get('tab');
+  
+  return &lt;div&gt;User {id}, Tab: {tab}&lt;/div&gt;;
+};</code></pre>
+
+            <h3>Protected Routes</h3>
+            <div class="description">Restrict access to routes based on authentication status</div>
+            <pre><code class="language-jsx">const ProtectedRoute = ({ children }) =&gt; {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : &lt;Navigate to="/login" /&gt;;
+};
+
+// Usage
+&lt;Route path="/dashboard" element={
+  &lt;ProtectedRoute&gt;
+    &lt;Dashboard /&gt;
+  &lt;/ProtectedRoute&gt;
+} /&gt;</code></pre>
+          </div>
+
+
+
+
+
+          <div class="card" id="deployment">
+            <h2>Build & Deployment</h2>
+
+            <h3>Vite Config</h3>
+            <div class="description">Configure build settings, plugins, and optimizations for production</div>
+            <pre><code class="language-javascript">// vite.config.js
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+        }
+      }
+    }
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    }
+  }
+})</code></pre>
+
+            <h3>Environment Variables</h3>
+            <div class="description">Manage different configurations for development, staging, and production</div>
+            <pre><code class="language-bash"># .env
+VITE_API_URL=http://localhost:8000
+VITE_APP_TITLE=My App</code></pre>
+            <pre><code class="language-jsx">// Usage
+const apiUrl = import.meta.env.VITE_API_URL;
+const appTitle = import.meta.env.VITE_APP_TITLE;</code></pre>
+
+            <h3>Build Scripts</h3>
+            <div class="description">NPM scripts for development, building, and deploying your application</div>
+            <pre><code class="language-json">// package.json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build:staging": "vite build --mode staging",
+    "build:prod": "vite build --mode production"
+  }
+}</code></pre>
+          </div>
+
+          <div class="card" id="real-world-patterns">
+            <h2>Real-World Patterns</h2>
+
+            <h3>Search with Filters</h3>
+            <div class="description">Comprehensive search component with debouncing and multiple filters</div>
+            <pre><code class="language-jsx">const useSearch = (data, searchFields = ['name']) =&gt; {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filters, setFilters] = useState({});
+  const [sortBy, setSortBy] = useState('name');
+  const [sortOrder, setSortOrder] = useState('asc');
+  
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
+  const filteredData = useMemo(() =&gt; {
+    let result = data;
+
+    // Apply search
+    if (debouncedSearchTerm) {
+      result = result.filter(item =&gt;
+        searchFields.some(field =&gt;
+          item[field]?.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+        )
+      );
+    }
+
+    // Apply filters
+    Object.entries(filters).forEach(([key, value]) =&gt; {
+      if (value) {
+        result = result.filter(item =&gt; item[key] === value);
+      }
+    });
+
+    // Apply sorting
+    result.sort((a, b) =&gt; {
+      const aVal = a[sortBy];
+      const bVal = b[sortBy];
+      const modifier = sortOrder === 'asc' ? 1 : -1;
+      return aVal &lt; bVal ? -modifier : aVal &gt; bVal ? modifier : 0;
+    });
+
+    return result;
+  }, [data, debouncedSearchTerm, filters, sortBy, sortOrder, searchFields]);
+
+  return {
+    searchTerm,
+    setSearchTerm,
+    filters,
+    setFilters,
+    sortBy,
+    setSortBy,
+    sortOrder,
+    setSortOrder,
+    filteredData
+  };
+};</code></pre>
+
+            <h3>Optimistic Updates</h3>
+            <div class="description">Update UI immediately while API call is in progress, rollback on error</div>
+            <pre><code class="language-jsx">const useOptimisticUpdate = (initialData, updateFn) =&gt; {
+  const [data, setData] = useState(initialData);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const optimisticUpdate = async (optimisticData, apiCall) =&gt; {
+    const previousData = data;
+    
+    // Immediately update UI
+    setData(optimisticData);
+    setIsUpdating(true);
+
+    try {
+      // Make API call
+      const result = await apiCall();
+      setData(result);
+    } catch (error) {
+      // Rollback on error
+      setData(previousData);
+      throw error;
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  return { data, isUpdating, optimisticUpdate };
+};
+
+// Usage
+const TodoItem = ({ todo, onUpdate }) =&gt; {
+  const { data, isUpdating, optimisticUpdate } = useOptimisticUpdate(todo);
+
+  const handleToggle = async () =&gt; {
+    const optimisticTodo = { ...data, completed: !data.completed };
+    
+    try {
+      await optimisticUpdate(
+        optimisticTodo,
+        () =&gt; updateTodo(data.id, optimisticTodo)
+      );
+    } catch (error) {
+      alert('Failed to update todo');
+    }
+  };
+
+  return (
+    &lt;div className={isUpdating ? 'updating' : ''}&gt;
+      &lt;input
+        type="checkbox"
+        checked={data.completed}
+        onChange={handleToggle}
+      /&gt;
+      {data.title}
+    &lt;/div&gt;
+  );
+};</code></pre>
+
+            <h3>Infinite Scroll</h3>
+            <div class="description">Load more data automatically when user scrolls near the bottom</div>
+            <pre><code class="language-jsx">const useInfiniteScroll = (fetchMore) =&gt; {
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+
+  useEffect(() =&gt; {
+    const handleScroll = () =&gt; {
+      if (loading || !hasMore) return;
+
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      
+      if (scrollTop + clientHeight &gt;= scrollHeight - 5) {
+        setLoading(true);
+        fetchMore()
+          .then((newData) =&gt; {
+            if (newData.length === 0) setHasMore(false);
+          })
+          .finally(() =&gt; setLoading(false));
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () =&gt; window.removeEventListener('scroll', handleScroll);
+  }, [loading, hasMore, fetchMore]);
+
+  return { loading, hasMore };
+};
+
+// Usage
+const InfiniteList = () =&gt; {
+  const [items, setItems] = useState([]);
+  const [page, setPage] = useState(1);
+
+  const fetchMore = useCallback(async () =&gt; {
+    const newItems = await fetchItems(page);
+    setItems(prev =&gt; [...prev, ...newItems]);
+    setPage(prev =&gt; prev + 1);
+    return newItems;
+  }, [page]);
+
+  const { loading, hasMore } = useInfiniteScroll(fetchMore);
+
+  return (
+    &lt;div&gt;
+      {items.map(item =&gt; &lt;ItemCard key={item.id} item={item} /&gt;)}
+      {loading && &lt;div&gt;Loading more...&lt;/div&gt;}
+      {!hasMore && &lt;div&gt;No more items&lt;/div&gt;}
+    &lt;/div&gt;
+  );
+};</code></pre>
+          </div>
+
+
+
+          <div class="card" id="advanced">
+            <h2>Advanced Patterns</h2>
+
+            <h3>Context API</h3>
+            <div class="description">Share state across components without prop drilling</div>
+            <pre><code class="language-jsx">const ThemeContext = createContext();
+
+const ThemeProvider = ({ children }) =&gt; {
+  const [theme, setTheme] = useState('light');
+  return (
+    &lt;ThemeContext.Provider value={{ theme, setTheme }}&gt;
+      {children}
+    &lt;/ThemeContext.Provider&gt;
+  );
+};
+
+const useTheme = () =&gt; useContext(ThemeContext);</code></pre>
+
+            <h3>Error Boundaries</h3>
+            <div class="description">Catch JavaScript errors in component tree and display fallback UI</div>
+            <pre><code class="language-jsx">class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // Log error to monitoring service
+    console.error('Error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback || (
+        &lt;div className="error-fallback"&gt;
+          &lt;h2&gt;Something went wrong&lt;/h2&gt;
+          &lt;p&gt;{this.state.error?.message}&lt;/p&gt;
+          &lt;button onClick={() =&gt; this.setState({ hasError: false })}&gt;
+            Try again
+          &lt;/button&gt;
+        &lt;/div&gt;
+      );
+    }
+    return this.props.children;
+  }
+}
+
+// Usage
+const App = () =&gt; (
+  &lt;ErrorBoundary fallback={&lt;CustomErrorPage /&gt;}&gt;
+    &lt;Header /&gt;
+    &lt;Main /&gt;
+  &lt;/ErrorBoundary&gt;
+);</code></pre>
+
+            <h3>Global Error Handler</h3>
+            <div class="description">Centralized error handling for API calls and async operations</div>
+            <pre><code class="language-jsx">// Error handling context
+const ErrorContext = createContext();
+
+const ErrorProvider = ({ children }) =&gt; {
+  const [errors, setErrors] = useState([]);
+
+  const addError = (error) =&gt; {
+    const id = Date.now();
+    setErrors(prev =&gt; [...prev, { id, message: error.message, type: 'error' }]);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() =&gt; removeError(id), 5000);
+  };
+
+  const removeError = (id) =&gt; {
+    setErrors(prev =&gt; prev.filter(error =&gt; error.id !== id));
+  };
+
+  const addSuccess = (message) =&gt; {
+    const id = Date.now();
+    setErrors(prev =&gt; [...prev, { id, message, type: 'success' }]);
+    setTimeout(() =&gt; removeError(id), 3000);
+  };
+
+  return (
+    &lt;ErrorContext.Provider value={{ errors, addError, removeError, addSuccess }}&gt;
+      {children}
+      &lt;ErrorDisplay errors={errors} onRemove={removeError} /&gt;
+    &lt;/ErrorContext.Provider&gt;
+  );
+};
+
+const useError = () =&gt; useContext(ErrorContext);
+
+// Usage in components
+const DataComponent = () =&gt; {
+  const { addError, addSuccess } = useError();
+  
+  const handleSubmit = async (data) =&gt; {
+    try {
+      await submitData(data);
+      addSuccess('Data saved successfully!');
+    } catch (error) {
+      addError(error);
+    }
+  };
+};</code></pre>
+
+            <h3>React.memo</h3>
+            <div class="description">Prevent unnecessary re-renders by memoizing component output</div>
+            <pre><code class="language-jsx">const ExpensiveComponent = React.memo(({ data }) =&gt; {
+  return &lt;div&gt;{data.title}&lt;/div&gt;;
+});
+
+// Custom comparison
+const MyComponent = React.memo(({ user }) =&gt; {
+  return &lt;div&gt;{user.name}&lt;/div&gt;;
+}, (prevProps, nextProps) =&gt; {
+  return prevProps.user.id === nextProps.user.id;
+});</code></pre>
+
+            <h3>Code Splitting</h3>
+            <div class="description">Load components dynamically to reduce initial bundle size</div>
+            <pre><code class="language-jsx">import { lazy, Suspense } from 'react';
+
+const LazyComponent = lazy(() =&gt; import('./LazyComponent'));
+
+const App = () =&gt; (
+  &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+    &lt;LazyComponent /&gt;
+  &lt;/Suspense&gt;
+);</code></pre>
+          </div>
+
+          <div class="card" id="best-practices">
+            <h2>Best Practices</h2>
+
+            <div class="highlight">
+              <h3>Component Design</h3>
+              <ul class="list">
+                <li>Keep components small and focused</li>
+                <li>Use descriptive names</li>
+                <li>Extract reusable logic into custom hooks</li>
+                <li>Prefer composition over inheritance</li>
+              </ul>
+            </div>
+
+            <div class="tip">
+              <h3>Performance</h3>
+              <ul class="list">
+                <li>Use React.memo for expensive components</li>
+                <li>Optimize with useCallback and useMemo sparingly</li>
+                <li>Implement code splitting for large apps</li>
+                <li>Use proper keys in lists</li>
+              </ul>
+            </div>
+
+
+
+            <h3>Accessibility</h3>
+            <div class="description">Make your app usable for everyone with semantic HTML and ARIA attributes</div>
+            <pre><code class="language-jsx">// Use semantic HTML
+&lt;button&gt;Click me&lt;/button&gt;
+&lt;nav&gt;&lt;/nav&gt;
+&lt;main&gt;&lt;/main&gt;
+
+// Add ARIA labels
+&lt;button aria-label="Close modal"&gt;×&lt;/button&gt;
+&lt;input aria-describedby="help-text" /&gt;
+
+// Manage focus
+const modalRef = useRef();
+useEffect(() =&gt; {
+  if (isOpen) modalRef.current?.focus();
+}, [isOpen]);</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prism.js JavaScript for syntax highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+
+</html>
