@@ -1,0 +1,154 @@
+.section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.section-header {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  color: #2d3748;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.section-description {
+  color: #4a5568;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.section-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.subsection {
+  position: relative;
+}
+
+.subsection-title {
+  color: #2d3748;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+}
+
+.subsection-description {
+  color: #718096;
+  font-size: 0.95rem;
+  font-style: italic;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.subsection-tips {
+  margin-top: 1.5rem;
+}
+
+.tip-box {
+  background: #f0fff4;
+  border-left: 4px solid #48bb78;
+  padding: 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.tip-list {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.25rem;
+}
+
+.tip-list li {
+  margin-bottom: 0.25rem;
+  color: #2d3748;
+}
+
+.subsection-warnings {
+  margin-top: 1.5rem;
+}
+
+.warning-box {
+  background: #fed7d7;
+  border-left: 4px solid #f56565;
+  padding: 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.warning-list {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.25rem;
+}
+
+.warning-list li {
+  margin-bottom: 0.25rem;
+  color: #2d3748;
+}
+
+
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .subsection-title {
+    font-size: 1.125rem;
+  }
+  
+  .section-content {
+    gap: 1.5rem;
+  }
+  
+  .tip-box,
+  .warning-box {
+    padding: 0.75rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .section {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+  
+
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .section {
+    border: 2px solid #2d3748;
+  }
+  
+  .section-title {
+    border-bottom-color: #2d3748;
+  }
+  
+  .tip-box {
+    border-left-width: 6px;
+  }
+  
+  .warning-box {
+    border-left-width: 6px;
+  }
+}
