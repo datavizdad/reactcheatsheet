@@ -24,7 +24,7 @@ const useScrollSpy = (sectionIds, options = {}) => {
         window.history.pushState(null, null, `#${sectionId}`);
       }
       setActiveSection(sectionId);
-    }
+    } // test
   }, []);
 
   useEffect(() => {
