@@ -545,7 +545,25 @@ const appTitle = import.meta.env.VITE_APP_TITLE;`,
         description: 'Comprehensive search component with debouncing and multiple filters',
         codeExamples: [
           {
-            code: `const useSearch = (data, searchFields = ['name']) => {
+            code: `// Custom useDebounce hook
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
+// Search hook using debounce
+const useSearch = (data, searchFields = ['name']) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({});
   const [sortBy, setSortBy] = useState('name');
