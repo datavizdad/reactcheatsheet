@@ -171,27 +171,6 @@ useEffect(() => {
         ]
       },
       {
-        id: 'usecallback-usememo',
-        title: 'useCallback & useMemo',
-        description: 'Optimize performance by memoizing functions and expensive calculations',
-        codeExamples: [
-          {
-            code: `// Memoize functions
-const handleClick = useCallback((id) => {
-  onItemClick(id);
-}, [onItemClick]);
-
-// Memoize expensive calculations
-const expensiveValue = useMemo(() => {
-  return items.filter(item => 
-    item.name.includes(searchTerm)
-  );
-}, [items, searchTerm]);`,
-            language: 'jsx'
-          }
-        ]
-      },
-      {
         id: 'usereducer',
         title: 'useReducer',
         description: 'Manage complex state logic with actions and reducers for predictable updates',
@@ -226,9 +205,6 @@ const Counter = () => {
 };`,
             language: 'jsx'
           }
-        ],
-        tips: [
-          'Use useCallback for functions, useMemo for values. Only use when you have performance issues. Use useReducer for complex state logic with multiple related values.'
         ]
       }
     ]
@@ -542,7 +518,7 @@ const appTitle = import.meta.env.VITE_APP_TITLE;`,
       {
         id: 'search-with-filters',
         title: 'Search with Filters',
-        description: 'Comprehensive search component with debouncing and multiple filters',
+        description: 'Search component with debouncing (delays execution until user stops typing) and multiple filters',
         codeExamples: [
           {
             code: `// Custom useDebounce hook
@@ -623,7 +599,47 @@ const useSearch = (data, searchFields = ['name']) => {
         description: 'Update UI immediately while API call is in progress, rollback on error',
         codeExamples: [
           {
-            code: `const useOptimisticUpdate = (initialData, updateFn) => {
+            code: `// React 19: Built-in useOptimistic hook
+import { useOptimistic } from 'react';
+
+function TodoItem({ todo, updateTodo }) {
+  const [optimisticTodo, addOptimisticTodo] = useOptimistic(
+    todo,
+    (currentTodo, optimisticValue) => ({
+      ...currentTodo,
+      ...optimisticValue
+    })
+  );
+
+  const handleToggle = async () => {
+    // Immediately update UI
+    addOptimisticTodo({ completed: !optimisticTodo.completed });
+    
+    try {
+      // Make API call
+      await updateTodo(todo.id, { completed: !todo.completed });
+    } catch (error) {
+      // React automatically reverts on error
+      console.error('Failed to update todo:', error);
+    }
+  };
+
+  return (
+    <div>
+      <input
+        type="checkbox"
+        checked={optimisticTodo.completed}
+        onChange={handleToggle}
+      />
+      {optimisticTodo.text}
+    </div>
+  );
+}`,
+            language: 'jsx'
+          },
+          {
+            code: `// Custom solution (React 18 and below)
+const useOptimisticUpdate = (initialData) => {
   const [data, setData] = useState(initialData);
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -648,6 +664,35 @@ const useSearch = (data, searchFields = ['name']) => {
   };
 
   return { data, isUpdating, optimisticUpdate };
+};
+
+// Usage
+const TodoItem = ({ todo, onUpdate }) => {
+  const { data, isUpdating, optimisticUpdate } = useOptimisticUpdate(todo);
+
+  const handleToggle = async () => {
+    const optimisticTodo = { ...data, completed: !data.completed };
+    
+    try {
+      await optimisticUpdate(
+        optimisticTodo,
+        () => updateTodo(data.id, optimisticTodo)
+      );
+    } catch (error) {
+      alert('Failed to update todo');
+    }
+  };
+
+  return (
+    <div className={isUpdating ? 'updating' : ''}>
+      <input
+        type="checkbox"
+        checked={data.completed}
+        onChange={handleToggle}
+      />
+      {data.title}
+    </div>
+  );
 };`,
             language: 'jsx'
           }
@@ -685,7 +730,7 @@ const useTheme = () => useContext(ThemeContext);`,
       {
         id: 'error-boundaries',
         title: 'Error Boundaries',
-        description: 'Catch JavaScript errors in component tree and display fallback UI',
+        description: 'Catch JavaScript errors in component tree and display fallback UI (must be class components - no hooks available for this)',
         codeExamples: [
           {
             code: `class ErrorBoundary extends Component {
@@ -743,59 +788,6 @@ const MyComponent = React.memo(({ user }) => {
         ]
       }
     ]
-  },
-  {
-    id: 'best-practices',
-    title: 'Best Practices',
-    description: 'React development best practices and guidelines',
-    subsections: [
-      {
-        id: 'component-design',
-        title: 'Component Design',
-        description: 'Guidelines for designing maintainable components',
-        tips: [
-          'Keep components small and focused',
-          'Use descriptive names',
-          'Extract reusable logic into custom hooks',
-          'Prefer composition over inheritance'
-        ]
-      },
-      {
-        id: 'performance',
-        title: 'Performance',
-        description: 'Tips for optimizing React application performance',
-        tips: [
-          'Use React.memo for expensive components',
-          'Optimize with useCallback and useMemo sparingly',
-          'Implement code splitting for large apps',
-          'Use proper keys in lists'
-        ]
-      },
-      {
-        id: 'accessibility',
-        title: 'Accessibility',
-        description: 'Make your app usable for everyone with semantic HTML and ARIA attributes',
-        codeExamples: [
-          {
-            code: `// Use semantic HTML
-<button>Click me</button>
-<nav></nav>
-<main></main>
-
-// Add ARIA labels
-<button aria-label="Close modal">×</button>
-<input aria-describedby="help-text" />
-
-// Manage focus
-const modalRef = useRef();
-useEffect(() => {
-  if (isOpen) modalRef.current?.focus();
-}, [isOpen]);`,
-            language: 'jsx'
-          }
-        ]
-      }
-    ]
   }
 ];
 
@@ -808,6 +800,5 @@ export const navigationSections = [
   { id: 'routing', title: 'Routing' },
   { id: 'deployment', title: 'Deployment' },
   { id: 'real-world-patterns', title: 'Real-World Patterns' },
-  { id: 'advanced', title: 'Advanced Patterns' },
-  { id: 'best-practices', title: 'Best Practices' }
+  { id: 'advanced', title: 'Advanced Patterns' }
 ];

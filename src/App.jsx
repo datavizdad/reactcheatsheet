@@ -71,26 +71,17 @@ const Section = ({ section }) => (
   <div className="section" id={section.id}>
     <h2>{section.title}</h2>
     {section.description && <p className="description">{section.description}</p>}
-    
+
     {section.subsections.map(subsection => (
       <div key={subsection.id} className="subsection">
         <h3>{subsection.title}</h3>
         {subsection.description && <p className="sub-description">{subsection.description}</p>}
-        
+
         {subsection.codeExamples && subsection.codeExamples.map((example, index) => (
           <CodeBlock key={index} code={example.code} language={example.language} />
         ))}
-        
-        {subsection.tips && subsection.tips.length > 0 && (
-          <div className="tip">
-            <strong>💡 Tip:</strong>
-            <ul>
-              {subsection.tips.map((tip, index) => (
-                <li key={index}>{tip}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+
+
       </div>
     ))}
   </div>
@@ -111,7 +102,7 @@ const App = () => {
   return (
     <div className="app">
       <header className="header">
-        <button 
+        <button
           className="menu-toggle"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >

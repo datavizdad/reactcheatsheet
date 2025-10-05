@@ -216,22 +216,7 @@ body {
 .token.important,
 .token.variable { color: #f6ad55; }
 
-/* Tips */
-.tip {
-  background: #f0fff4;
-  border-left: 4px solid #48bb78;
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 0 6px 6px 0;
-}
 
-.tip ul {
-  margin: 0.5rem 0 0 1.25rem;
-}
-
-.tip li {
-  margin-bottom: 0.25rem;
-}
 
 /* Mobile styles */
 @media (max-width: 768px) {
