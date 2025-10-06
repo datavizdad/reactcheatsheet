@@ -66,6 +66,37 @@ const Navigation = ({ onSectionClick }) => (
   </nav>
 );
 
+// Tabbed CodeBlock component for ColdFusion syntax comparison
+const TabbedCodeBlock = ({ scriptCode, tagCode, templateCode, language = 'javascript' }) => {
+  const [activeTab, setActiveTab] = useState(1); // Default to tag syntax (index 1)
+
+  const examples = [
+    { title: 'CFScript', code: scriptCode, language: language },
+    { title: 'Tag Syntax', code: tagCode, language: 'html' },
+    ...(templateCode ? [{ title: 'Tag Template Method', code: templateCode, language: 'html' }] : [])
+  ];
+
+  return (
+    <div className="tabbed-code-block">
+      <div className="code-tabs">
+        {examples.map((example, index) => (
+          <button
+            key={index}
+            className={`code-tab ${activeTab === index ? 'active' : ''}`}
+            onClick={() => setActiveTab(index)}
+          >
+            {example.title || `Example ${index + 1}`}
+          </button>
+        ))}
+      </div>
+      <CodeBlock
+        code={examples[activeTab].code}
+        language={examples[activeTab].language}
+      />
+    </div>
+  );
+};
+
 // Simple Section component
 const Section = ({ section }) => (
   <div className="section" id={section.id}>
@@ -77,11 +108,27 @@ const Section = ({ section }) => (
         <h3>{subsection.title}</h3>
         {subsection.description && <p className="sub-description">{subsection.description}</p>}
 
-        {subsection.codeExamples && subsection.codeExamples.map((example, index) => (
-          <CodeBlock key={index} code={example.code} language={example.language} />
-        ))}
-
-
+        {/* Special handling for ColdFusion backend - show tabs */}
+        {section.id === 'coldfusion-backend' ? (
+          subsection.codeExamples && subsection.codeExamples.map((example, index) => (
+            example.scriptCode && example.tagCode ? (
+              <TabbedCodeBlock 
+                key={index}
+                scriptCode={example.scriptCode} 
+                tagCode={example.tagCode}
+                templateCode={example.templateCode}
+                language="javascript"
+              />
+            ) : (
+              <CodeBlock key={index} code={example.code} language={example.language} />
+            )
+          ))
+        ) : (
+          /* Regular code examples for all other sections */
+          subsection.codeExamples && subsection.codeExamples.map((example, index) => (
+            <CodeBlock key={index} code={example.code} language={example.language} />
+          ))
+        )}
       </div>
     ))}
   </div>

@@ -268,6 +268,76 @@ body {
   }
 }
 
+/* Tabbed code blocks for ColdFusion syntax comparison */
+.tabbed-code-block {
+  margin: 1rem 0;
+}
+
+.code-tabs {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 0;
+}
+
+.code-tab {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-bottom: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a5568;
+  transition: all 0.2s;
+  border-radius: 6px 6px 0 0;
+  margin-right: 2px;
+}
+
+.code-tab:hover {
+  background: #edf2f7;
+  color: #2d3748;
+}
+
+.code-tab.active {
+  background: #2d3748;
+  color: #e2e8f0;
+  border-color: #4a5568;
+}
+
+.tabbed-code-block .code-block {
+  margin-top: 0;
+}
+
+.tabbed-code-block .code-block pre {
+  border-radius: 0 6px 6px 6px;
+  border-top: none;
+}
+
+.syntax-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Mobile adjustments for tabs */
+@media (max-width: 768px) {
+  .code-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .code-tab {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    margin-right: 1px;
+    margin-bottom: 1px;
+  }
+  
+  .syntax-examples {
+    gap: 1.5rem;
+  }
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
