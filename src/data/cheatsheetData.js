@@ -4,27 +4,14 @@ export const cheatsheetData = [
     title: 'React Fundamentals',
     description: 'Core React concepts and JSX basics',
     subsections: [
-      {
-        id: 'jsx-basics',
-        title: 'JSX Basics',
-        description: 'Create elements with JavaScript expressions and map arrays to lists',
-        codeExamples: [
-          {
-            code: `const element = <h1>Hello, {name}!</h1>;
-const list = items.map(item => 
-  <li key={item.id}>{item.name}</li>
-);`,
-            language: 'jsx'
-          }
-        ]
-      },
+
       {
         id: 'functional-components',
         title: 'Functional Components',
         description: 'Define components as arrow functions or function declarations with props destructuring',
         codeExamples: [
           {
-            code: `// Arrow function (preferred for simple components)
+            code: `// Arrow function 
 const Welcome = ({ name, age = 18 }) => {
   return (
     <div>
@@ -34,7 +21,7 @@ const Welcome = ({ name, age = 18 }) => {
   );
 };
 
-// Function declaration (hoisted, good for complex components)
+// Function declaration (hoisted)
 function Welcome({ name, age = 18 }) {
   return (
     <div>
